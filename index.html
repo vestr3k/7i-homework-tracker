@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>7I HOMEWORK TRACKER</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7I HOMEWORK TRACKER</title>
 
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -32,53 +32,42 @@ placeholder="Search homework..."
 >
 
 <select id="sort">
-
-<option value="soon">
-Due Soonest
-</option>
-
-<option value="late">
-Due Latest
-</option>
-
-<option value="subject">
-Subject
-</option>
-
+<option value="soon">Due Soonest</option>
+<option value="late">Due Latest</option>
+<option value="subject">Subject</option>
 </select>
 
 </div>
 
-<div id="homeworkList">
+<div id="homeworkList"></div>
 
-</div>
+<!-- Admin Login Popup -->
 
-<!-- Login Popup -->
-
-<!-- Lock Button -->
-<button id="lockBtn" class="lock-btn">🔒</button>
-
-<!-- Login Popup -->
 <div id="loginPopup" class="popup">
 
-    <div class="popupBox">
+<div class="popupBox">
 
-        <span id="closePopup">&times;</span>
+<span id="closePopup">&times;</span>
 
-        <h2>Admin Access</h2>
+<h2>Admin Access</h2>
 
-        <p>Enter password</p>
+<p>Enter password</p>
 
-        <input
-            type="password"
-            id="adminPassword"
-            placeholder="Password"
-        >
+<input
+type="password"
+id="adminPassword"
+placeholder="Password"
+>
 
-        <button id="loginBtn">
-            Login
-        </button>
-
-    </div>
+<button id="loginBtn">
+Login
+</button>
 
 </div>
+
+</div>
+
+<script type="module" src="student.js"></script>
+
+</body>
+</html>

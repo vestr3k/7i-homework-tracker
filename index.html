@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>7i Homework Tracker</h1>
+
+<button id="lockBtn">
+??
+</button>
+
+</header>
+
+<div class="controls">
+
+<input
+id="search"
+type="text"
+placeholder="?? Search homework..."
+>
+
+<select id="sort">
+
+<option value="soon">
+Due Soonest
+</option>
+
+<option value="late">
+Due Latest
+</option>
+
+<option value="subject">
+Subject
+</option>
+
+</select>
+
+</div>
+
+<div id="homeworkList">
+
+</div>
+
+<!-- LOGIN POPUP -->
+
+<div id="loginPopup" class="popup">
+
+<div class="popupBox">
+
+<span class="close">&times;</span>
+
+<div class="lockIcon">
+??
+</div>
+
+<h2>Admin Login</h2>
+
+<p>
+Only admins can edit homework.
+</p>
+
+<input
+id="adminCode"
+type="password"
+placeholder="Enter Admin Code"
+>
+
+<button id="loginBtn">
+LOGIN
+</button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

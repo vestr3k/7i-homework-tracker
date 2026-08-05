@@ -284,3 +284,56 @@ width:90%;
 }
 
 }
+
+.lock-btn{
+    position:fixed;
+    top:20px;
+    right:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#E8BF3A;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.popup{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    justify-content:center;
+    align-items:center;
+}
+
+.popupBox{
+    background:#F8F1E2;
+    padding:30px;
+    border-radius:20px;
+    width:320px;
+    text-align:center;
+}
+
+.popupBox input{
+    width:100%;
+    padding:12px;
+    margin:15px 0;
+    border-radius:12px;
+    border:2px solid #D8A64B;
+}
+
+.popupBox button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#E8BF3A;
+    cursor:pointer;
+}
+
+#closePopup{
+    float:right;
+    cursor:pointer;
+    font-size:24px;
+}

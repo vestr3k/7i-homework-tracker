@@ -57,45 +57,30 @@ Subject
 
 <!-- Login Popup -->
 
-<div id="loginModal" class="modal">
+<!-- Lock Button -->
+<button id="lockBtn" class="lock-btn">🔒</button>
 
-<div class="modal-content">
+<!-- Login Popup -->
+<div id="loginPopup" class="popup">
 
-<h2>Admin Login</h2>
+    <div class="popupBox">
 
-<input
-id="email"
-type="email"
-placeholder="Email"
->
+        <span id="closePopup">&times;</span>
 
-<input
-id="password"
-type="password"
-placeholder="Password"
->
+        <h2>Admin Access</h2>
 
-<div class="buttons">
+        <p>Enter password</p>
 
-<button id="loginBtn">
+        <input
+            type="password"
+            id="adminPassword"
+            placeholder="Password"
+        >
 
-Login
+        <button id="loginBtn">
+            Login
+        </button>
 
-</button>
-
-<button id="closeBtn">
-
-Cancel
-
-</button>
+    </div>
 
 </div>
-
-</div>
-
-</div>
-
-<script type="module" src="student.js"></script>
-
-</body>
-</html>

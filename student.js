@@ -79,3 +79,48 @@ onSnapshot(q,(snapshot)=>{
 
 search.oninput=render;
 sort.onchange=render;
+
+const popup=document.getElementById("loginPopup");
+const lock=document.getElementById("lockBtn");
+const close=document.getElementById("closePopup");
+const login=document.getElementById("loginBtn");
+
+lock.onclick=()=>{
+
+    popup.style.display="flex";
+
+}
+
+close.onclick=()=>{
+
+    popup.style.display="none";
+
+}
+
+window.onclick=(e)=>{
+
+    if(e.target===popup){
+
+        popup.style.display="none";
+
+    }
+
+}
+
+login.onclick=()=>{
+
+    const password=document
+    .getElementById("adminPassword")
+    .value;
+
+    if(password==="Homework"){
+
+        window.location="admin.html";
+
+    }else{
+
+        alert("Wrong password");
+
+    }
+
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7I HOMEWORK TRACKER</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+
+<h1>7I HOMEWORK TRACKER</h1>
+
+<button id="loginButton">
+?? Admin
+</button>
+
+</header>
+
+<div class="controls">
+
+<input
+type="text"
+id="search"
+placeholder="Search homework..."
+>
+
+<select id="sort">
+
+<option value="soon">
+Due Soonest
+</option>
+
+<option value="late">
+Due Latest
+</option>
+
+<option value="subject">
+Subject
+</option>
+
+</select>
+
+</div>
+
+<div id="homeworkList">
+
+</div>
+
+<!-- Login Popup -->
+
+<div id="loginModal" class="modal">
+
+<div class="modal-content">
+
+<h2>Admin Login</h2>
+
+<input
+id="email"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="password"
+type="password"
+placeholder="Password"
+>
+
+<div class="buttons">
+
+<button id="loginBtn">
+
+Login
+
+</button>
+
+<button id="closeBtn">
+
+Cancel
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="student.js"></script>
+
+</body>
+</html>

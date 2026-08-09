@@ -7,7 +7,6 @@ import {
 
 import { db } from "./firebase.js";
 
-
 const homeworkList = document.getElementById("homeworkList");
 const search = document.getElementById("search");
 const sort = document.getElementById("sort");
@@ -155,6 +154,9 @@ function render() {
 
     homeworkList.innerHTML = items.map((item) => {
 
+        const dueInfo =
+            getDueInfo(item.due);
+
         return `
             <article class="homework-card">
 
@@ -174,14 +176,14 @@ function render() {
 
                 </div>
 
-                <div class="due-date">
+                <div class="due-date ${dueInfo.className}">
 
                     <span class="due-label">
-                        Due
+                        ${dueInfo.label}
                     </span>
 
                     <span>
-                        ${formatDate(item.due)}
+                        ${dueInfo.date}
                     </span>
 
                 </div>
@@ -207,6 +209,89 @@ sort.addEventListener(
     "change",
     render
 );
+
+
+/* =========================
+   SMART DUE DATE
+========================= */
+
+function getDueInfo(dateString) {
+
+    if (!dateString) {
+
+        return {
+            label: "Due",
+            date: "-",
+            className: ""
+        };
+
+    }
+
+    const dueDate =
+        new Date(dateString + "T00:00:00");
+
+    const today =
+        new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const difference =
+        Math.round(
+            (dueDate - today) /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const formattedDate =
+        formatDate(dateString);
+
+
+    if (difference < 0) {
+
+        return {
+            label: "Terlambat",
+            date: formattedDate,
+            className: "overdue"
+        };
+
+    }
+
+    if (difference === 0) {
+
+        return {
+            label: "Hari ini",
+            date: formattedDate,
+            className: "due-today"
+        };
+
+    }
+
+    if (difference === 1) {
+
+        return {
+            label: "Besok",
+            date: formattedDate,
+            className: "due-tomorrow"
+        };
+
+    }
+
+    if (difference <= 7) {
+
+        return {
+            label: `${difference} hari lagi`,
+            date: formattedDate,
+            className: "due-soon"
+        };
+
+    }
+
+    return {
+        label: "Due",
+        date: formattedDate,
+        className: ""
+    };
+
+}
 
 
 /* =========================

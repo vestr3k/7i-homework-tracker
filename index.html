@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>7I Homework Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                7I
+            </div>
+
+            <div class="brand-text">
+                <h1 data-i18n="tracker">
+                    Homework Tracker
+                </h1>
+
+                <p data-i18n="class">
+                    Kelas 7I
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <!-- LANGUAGE -->
+            <select id="languageSelect" class="language-select">
+
+                <option value="id">
+                    ???? Bahasa Indonesia
+                </option>
+
+                <option value="en">
+                    ???? English
+                </option>
+
+            </select>
+
+
+            <!-- ADMIN -->
+            <button
+                class="admin-button"
+                id="adminButton"
+            >
+
+                <span class="lock-icon"></span>
+
+                <span data-i18n="admin">
+                    Admin
+                </span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN -->
+    <main class="container">
+
+
+        <!-- WELCOME -->
+        <section class="welcome">
+
+            <span
+                class="small-label"
+                data-i18n="classLabel"
+            >
+                KELAS 7I
+            </span>
+
+            <h2 data-i18n="homework">
+                Pekerjaan Rumah
+            </h2>
+
+            <p data-i18n="description">
+                Pantau semua tugas yang harus dikerjakan.
+            </p>
+
+        </section>
+
+
+
+        <!-- CONTROLS -->
+        <section class="controls">
+
+
+            <!-- SEARCH -->
+            <div class="search-box">
+
+                <span class="search-icon"></span>
+
+                <input
+                    type="text"
+                    id="search"
+                    data-i18n-placeholder="search"
+                    placeholder="Cari tugas..."
+                >
+
+            </div>
+
+
+            <!-- SORT -->
+            <select id="sort">
+
+                <option
+                    value="soon"
+                    data-i18n="dueSoonest"
+                >
+                    Paling Dekat
+                </option>
+
+                <option
+                    value="late"
+                    data-i18n="dueLatest"
+                >
+                    Paling Jauh
+                </option>
+
+                <option
+                    value="subject"
+                    data-i18n="subject"
+                >
+                    Mata Pelajaran
+                </option>
+
+            </select>
+
+        </section>
+
+
+
+        <!-- HOMEWORK -->
+        <section
+            id="homeworkList"
+            class="homework-list"
+        >
+
+            <!-- Sample homework -->
+            <article class="homework-card">
+
+                <div class="homework-info">
+
+                    <div class="subject">
+                        Matematika
+                    </div>
+
+                    <h3 class="homework-title">
+                        Latihan Soal Bab 3
+                    </h3>
+
+                    <p class="homework-details">
+                        Kerjakan halaman 42 nomor 1–10.
+                    </p>
+
+                </div>
+
+
+                <div class="due-date">
+
+                    <span class="due-label">
+                        Dikumpulkan
+                    </span>
+
+                    <span>
+                        12 Agu 2026
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="homework-card">
+
+                <div class="homework-info">
+
+                    <div class="subject">
+                        Bahasa Inggris
+                    </div>
+
+                    <h3 class="homework-title">
+                        Reading Chapter 3
+                    </h3>
+
+                    <p class="homework-details">
+                        Baca Chapter 3 dan buat rangkuman singkat.
+                    </p>
+
+                </div>
+
+
+                <div class="due-date">
+
+                    <span class="due-label">
+                        Dikumpulkan
+                    </span>
+
+                    <span>
+                        14 Agu 2026
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <article class="homework-card">
+
+                <div class="homework-info">
+
+                    <div class="subject">
+                        IPA
+                    </div>
+
+                    <h3 class="homework-title">
+                        Sistem Pernapasan
+                    </h3>
+
+                    <p class="homework-details">
+                        Pelajari materi halaman 56–60.
+                    </p>
+
+                </div>
+
+
+                <div class="due-date">
+
+                    <span class="due-label">
+                        Dikumpulkan
+                    </span>
+
+                    <span>
+                        16 Agu 2026
+                    </span>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © 2026
+            <span data-i18n="footer">
+                7I Homework Tracker
+            </span>
+        </p>
+
+    </footer>
+
+
+
+<script type="module" src="script.js"></script>
+
+</body>
+
+</html>

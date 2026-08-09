@@ -1117,3 +1117,23 @@ footer {
     }
 
 }
+
+/* =========================
+   DUE DATE STATUS
+========================= */
+
+.due-date.overdue {
+    border-color: #dc2626;
+}
+
+.due-date.due-today {
+    border-color: #ef4444;
+}
+
+.due-date.due-tomorrow {
+    border-color: #f59e0b;
+}
+
+.due-date.due-soon {
+    border-color: #22c55e;
+}

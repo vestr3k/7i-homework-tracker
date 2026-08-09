@@ -460,21 +460,3 @@ function escapeHTML(value) {
         .replaceAll("'", "&#039;");
 
 }
-
-
-
-/* =========================
-   ADMIN
-========================= */
-
-document
-    .getElementById("adminButton")
-    .addEventListener(
-        "click",
-        () => {
-
-            window.location.href =
-                "admin.html";
-
-        }
-    );

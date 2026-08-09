@@ -216,6 +216,8 @@ sort.addEventListener(
 ========================= */
 
 function getDueInfo(dateString) {
+    console.log("Due date:", dateString);
+    console.log("Today:", new Date());
 
     if (!dateString) {
 

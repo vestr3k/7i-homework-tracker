@@ -8,206 +8,49 @@ import {
 import { db } from "./firebase.js";
 
 
-/* =========================
-   TRANSLATIONS
-========================= */
-
-const translations = {
-
-    id: {
-        tracker: "Homework Tracker",
-        class: "Kelas 7I",
-        classLabel: "KELAS 7I",
-        homework: "Pekerjaan Rumah",
-        description: "Pantau semua tugas yang harus dikerjakan.",
-        search: "Cari tugas...",
-        dueSoonest: "Paling Dekat",
-        dueLatest: "Paling Jauh",
-        subject: "Mata Pelajaran",
-        admin: "Admin",
-        noHomework: "Belum ada tugas",
-        newHomework: "Tugas baru akan muncul di sini.",
-        due: "Dikumpulkan"
-    },
-
-    en: {
-        tracker: "Homework Tracker",
-        class: "Class 7I",
-        classLabel: "CLASS 7I",
-        homework: "Homework",
-        description: "Keep track of everything that's due.",
-        search: "Search homework...",
-        dueSoonest: "Due Soonest",
-        dueLatest: "Due Latest",
-        subject: "Subject",
-        admin: "Admin",
-        noHomework: "No homework yet",
-        newHomework: "New homework will appear here.",
-        due: "Due"
-    }
-
-};
-
-
-let currentLanguage =
-    localStorage.getItem("7i-language") || "id";
-
-
-const languageSelect =
-    document.getElementById("languageSelect");
-
-
-function setLanguage(language) {
-
-    if (!translations[language]) {
-        language = "id";
-    }
-
-    currentLanguage = language;
-
-    const texts =
-        translations[language];
-
-
-    document
-        .querySelectorAll("[data-i18n]")
-        .forEach(element => {
-
-            const key =
-                element.dataset.i18n;
-
-            if (texts[key]) {
-                element.textContent =
-                    texts[key];
-            }
-
-        });
-
-
-    document
-        .querySelectorAll("[data-i18n-placeholder]")
-        .forEach(element => {
-
-            const key =
-                element.dataset.i18nPlaceholder;
-
-            if (texts[key]) {
-                element.placeholder =
-                    texts[key];
-            }
-
-        });
-
-
-    localStorage.setItem(
-        "7i-language",
-        language
-    );
-
-    document.documentElement.lang =
-        language;
-
-    render();
-}
-
-
-languageSelect.value =
-    currentLanguage;
-
-
-setLanguage(currentLanguage);
-
-
-languageSelect.addEventListener(
-    "change",
-    () => {
-
-        setLanguage(
-            languageSelect.value
-        );
-
-    }
-);
-
-
-
-/* =========================
-   HOMEWORK
-========================= */
-
-const homeworkList =
-    document.getElementById("homeworkList");
-
-const search =
-    document.getElementById("search");
-
-const sort =
-    document.getElementById("sort");
-
+const homeworkList = document.getElementById("homeworkList");
+const search = document.getElementById("search");
+const sort = document.getElementById("sort");
 
 let homework = [];
 
 
 /* =========================
-   FIRESTORE
+   LOAD FROM FIRESTORE
 ========================= */
 
-const homeworkRef =
-    collection(db, "homework");
-
-
-const homeworkQuery =
-    query(
-        homeworkRef,
-        orderBy("due", "asc")
-    );
-
+const homeworkQuery = query(
+    collection(db, "homework"),
+    orderBy("due", "asc")
+);
 
 onSnapshot(
     homeworkQuery,
-    snapshot => {
 
-        homework =
-            snapshot.docs.map(doc => ({
+    (snapshot) => {
 
-                id: doc.id,
-
-                ...doc.data()
-
-            }));
+        homework = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data()
+        }));
 
         render();
 
     },
 
-    error => {
+    (error) => {
 
-        console.error(
-            "Firestore error:",
-            error
-        );
+        console.error("Firestore error:", error);
 
         homeworkList.innerHTML = `
             <div class="empty-state">
-
-                <div class="empty-icon">
-                    !
-                </div>
-
-                <h3>
-                    Unable to load homework
-                </h3>
-
-                <p>
-                    Check your Firestore setup.
-                </p>
-
+                <h3>Unable to load homework</h3>
+                <p>${escapeHTML(error.message)}</p>
             </div>
         `;
 
     }
 );
-
 
 
 /* =========================
@@ -216,44 +59,37 @@ onSnapshot(
 
 function render() {
 
-    let items =
-        [...homework];
+    let items = [...homework];
+
+    const searchText =
+        search.value.toLowerCase().trim();
 
 
     /* SEARCH */
 
-    const searchText =
-        search.value
-            .toLowerCase()
-            .trim();
-
-
     if (searchText) {
 
-        items =
-            items.filter(item => {
+        items = items.filter((item) => {
 
-                return (
+            return (
+                String(item.subject || "")
+                    .toLowerCase()
+                    .includes(searchText)
 
-                    String(item.subject || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                ||
 
-                    ||
+                String(item.title || "")
+                    .toLowerCase()
+                    .includes(searchText)
 
-                    String(item.title || "")
-                        .toLowerCase()
-                        .includes(searchText)
+                ||
 
-                    ||
+                String(item.details || "")
+                    .toLowerCase()
+                    .includes(searchText)
+            );
 
-                    String(item.details || "")
-                        .toLowerCase()
-                        .includes(searchText)
-
-                );
-
-            });
+        });
 
     }
 
@@ -270,7 +106,6 @@ function render() {
 
     }
 
-
     else if (sort.value === "late") {
 
         items.sort(
@@ -280,7 +115,6 @@ function render() {
         );
 
     }
-
 
     else if (sort.value === "subject") {
 
@@ -300,105 +134,68 @@ function render() {
     if (items.length === 0) {
 
         homeworkList.innerHTML = `
-
             <div class="empty-state">
 
-                <div class="empty-icon">
-                    <span class="check-icon"></span>
-                </div>
-
                 <h3>
-                    ${translations[currentLanguage].noHomework}
+                    No homework yet
                 </h3>
 
                 <p>
-                    ${translations[currentLanguage].newHomework}
+                    New homework will appear here.
                 </p>
 
             </div>
-
         `;
 
         return;
     }
 
 
-    /* CARDS */
+    /* HOMEWORK CARDS */
 
-    homeworkList.innerHTML =
-        items.map(item => {
+    homeworkList.innerHTML = items.map((item) => {
 
-            const date =
-                formatDate(item.due);
+        return `
+            <article class="homework-card">
 
+                <div class="homework-info">
 
-            return `
-
-                <article
-                    class="homework-card"
-                >
-
-                    <div
-                        class="homework-info"
-                    >
-
-                        <div
-                            class="subject"
-                        >
-                            ${escapeHTML(
-                                item.subject || ""
-                            )}
-                        </div>
-
-
-                        <h3
-                            class="homework-title"
-                        >
-                            ${escapeHTML(
-                                item.title || ""
-                            )}
-                        </h3>
-
-
-                        <p
-                            class="homework-details"
-                        >
-                            ${escapeHTML(
-                                item.details || ""
-                            )}
-                        </p>
-
+                    <div class="subject">
+                        ${escapeHTML(item.subject || "")}
                     </div>
 
+                    <h3 class="homework-title">
+                        ${escapeHTML(item.title || "")}
+                    </h3>
 
-                    <div
-                        class="due-date"
-                    >
+                    <p class="homework-details">
+                        ${escapeHTML(item.details || "")}
+                    </p>
 
-                        <span
-                            class="due-label"
-                        >
-                            ${translations[currentLanguage].due}
-                        </span>
+                </div>
 
-                        <span>
-                            ${date}
-                        </span>
+                <div class="due-date">
 
-                    </div>
+                    <span class="due-label">
+                        Due
+                    </span>
 
-                </article>
+                    <span>
+                        ${formatDate(item.due)}
+                    </span>
 
-            `;
+                </div>
 
-        }).join("");
+            </article>
+        `;
+
+    }).join("");
 
 }
 
 
-
 /* =========================
-   SEARCH / SORT
+   SEARCH + SORT
 ========================= */
 
 search.addEventListener(
@@ -406,12 +203,10 @@ search.addEventListener(
     render
 );
 
-
 sort.addEventListener(
     "change",
     render
 );
-
 
 
 /* =========================
@@ -424,17 +219,11 @@ function formatDate(dateString) {
         return "-";
     }
 
-
     const date =
-        new Date(
-            dateString + "T00:00:00"
-        );
-
+        new Date(dateString + "T00:00:00");
 
     return date.toLocaleDateString(
-        currentLanguage === "id"
-            ? "id-ID"
-            : "en-US",
+        "id-ID",
         {
             day: "numeric",
             month: "short",
@@ -445,9 +234,8 @@ function formatDate(dateString) {
 }
 
 
-
 /* =========================
-   SECURITY
+   HTML SAFETY
 ========================= */
 
 function escapeHTML(value) {

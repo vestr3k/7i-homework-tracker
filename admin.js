@@ -31,7 +31,7 @@ const auth = getAuth();
    ADMIN CODE
 ========================= */
 
-const ADMIN_CODE = "7I2026";
+const ADMIN_CODE = "etmindari7i";
 
 const loginSection =
     document.getElementById("loginSection");

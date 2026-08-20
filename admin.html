@@ -20,222 +20,341 @@
 
 <body>
 
-    <header class="topbar">
+<header class="topbar">
 
-        <div class="brand">
+    <div class="brand">
 
-            <div class="brand-icon">
-                7I
+        <div class="brand-icon">
+            7I
+        </div>
+
+        <div class="brand-text">
+            <h1>Admin Panel</h1>
+            <p>Kelas 7I</p>
+        </div>
+
+    </div>
+
+    <button
+        class="admin-button"
+        onclick="window.location.href='index.html'"
+    >
+        ← Kembali
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <section class="welcome">
+
+        <span class="small-label">
+            ADMIN
+        </span>
+
+        <h2>
+            Kelola Kelas 7I
+        </h2>
+
+        <p>
+            Kelola homework dan akun siswa.
+        </p>
+
+    </section>
+
+
+    <!-- ADMIN LOGIN -->
+
+    <section
+        id="loginSection"
+        class="admin-panel"
+    >
+
+        <div class="panel-icon">
+            🔒
+        </div>
+
+        <h3>
+            Admin Access
+        </h3>
+
+        <p>
+            Masukkan kode admin untuk melanjutkan.
+        </p>
+
+        <input
+            type="password"
+            id="adminCode"
+            placeholder="Kode admin"
+        >
+
+        <button
+            id="loginButton"
+            class="primary-button"
+        >
+            Masuk
+        </button>
+
+        <p
+            id="loginError"
+            class="error-message"
+        ></p>
+
+    </section>
+
+
+    <!-- ADMIN CONTENT -->
+
+    <section
+        id="adminContent"
+        class="admin-content hidden"
+    >
+
+        <div class="admin-header">
+
+            <div>
+
+                <h3>
+                    Admin Dashboard
+                </h3>
+
+                <p>
+                    Kelola homework dan akun siswa Class 7I.
+                </p>
+
             </div>
 
-            <div class="brand-text">
-                <h1>Admin Panel</h1>
-                <p>Kelas 7I</p>
+            <button
+                id="logoutButton"
+                class="secondary-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             ADD HOMEWORK
+        ========================== -->
+
+        <div class="admin-panel">
+
+            <h3>
+                Tambah Homework
+            </h3>
+
+            <p class="muted">
+                Tambahkan tugas baru untuk seluruh kelas 7I.
+            </p>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Mata Pelajaran
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        placeholder="Contoh: Matematika"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Judul
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Contoh: Latihan Bab 3"
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Detail
+                    </label>
+
+                    <textarea
+                        id="details"
+                        placeholder="Jelaskan tugas..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tanggal Pengumpulan
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dueDate"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="addButton"
+                class="primary-button"
+            >
+                + Tambah Homework
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             HOMEWORK LIST
+        ========================== -->
+
+        <div class="admin-panel">
+
+            <h3>
+                Homework Saat Ini
+            </h3>
+
+            <div id="adminHomeworkList">
+
+                <p class="muted">
+                    Memuat homework...
+                </p>
+
             </div>
 
         </div>
 
-        <button
-            class="admin-button"
-            onclick="window.location.href='index.html'"
-        >
-            ? Kembali
-        </button>
 
-    </header>
+        <!-- =========================
+             STUDENT ACCOUNTS
+        ========================== -->
 
-
-    <main class="container">
-
-        <section class="welcome">
-
-            <span class="small-label">
-                ADMIN
-            </span>
-
-            <h2>
-                Kelola Tugas
-            </h2>
-
-            <p>
-                Tambahkan, edit, atau hapus pekerjaan rumah.
-            </p>
-
-        </section>
-
-
-        <!-- ADMIN LOGIN -->
-
-        <section
-            id="loginSection"
-            class="admin-panel"
-        >
-
-            <div class="panel-icon">
-                ??
-            </div>
+        <div class="admin-panel">
 
             <h3>
-                Admin Access
+                👥 Akun Siswa
             </h3>
 
-            <p>
-                Masukkan kode admin untuk melanjutkan.
+            <p class="muted">
+                Buat akun login untuk siswa. Username dan password ditentukan oleh admin.
             </p>
 
-            <input
-                type="password"
-                id="adminCode"
-                placeholder="Kode admin"
-            >
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Nama Siswa
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentName"
+                        placeholder="Contoh: Andi"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="studentUsername"
+                        placeholder="Contoh: andi7i"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="studentPassword"
+                        placeholder="Buat password"
+                        autocomplete="new-password"
+                    >
+
+                </div>
+
+            </div>
+
 
             <button
-                id="loginButton"
+                id="createStudentButton"
                 class="primary-button"
+                type="button"
             >
-                Masuk
+                + Buat Akun Siswa
             </button>
 
+
             <p
-                id="loginError"
+                id="studentMessage"
                 class="error-message"
             ></p>
 
-        </section>
+        </div>
 
 
-        <!-- ADMIN CONTENT -->
+        <!-- =========================
+             STUDENT LIST
+        ========================== -->
 
-        <section
-            id="adminContent"
-            class="admin-content hidden"
-        >
+        <div class="admin-panel">
 
-            <div class="admin-header">
+            <h3>
+                Siswa Terdaftar
+            </h3>
 
-                <div>
-                    <h3>
-                        Homework
-                    </h3>
+            <div id="studentList">
 
-                    <p>
-                        Manage homework for Class 7I.
-                    </p>
-                </div>
-
-                <button
-                    id="logoutButton"
-                    class="secondary-button"
-                >
-                    Logout
-                </button>
+                <p class="muted">
+                    Memuat siswa...
+                </p>
 
             </div>
 
+        </div>
 
-            <!-- ADD HOMEWORK -->
+    </section>
 
-            <div class="admin-panel">
-
-                <h3>
-                    Tambah Homework
-                </h3>
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-
-                        <label>
-                            Mata Pelajaran
-                        </label>
-
-                        <input
-                            type="text"
-                            id="subject"
-                            placeholder="Contoh: Matematika"
-                        >
-
-                    </div>
+</main>
 
 
-                    <div class="form-group">
+<script
+    type="module"
+    src="admin.js"
+></script>
 
-                        <label>
-                            Judul
-                        </label>
-
-                        <input
-                            type="text"
-                            id="title"
-                            placeholder="Contoh: Latihan Bab 3"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group full">
-
-                        <label>
-                            Detail
-                        </label>
-
-                        <textarea
-                            id="details"
-                            placeholder="Jelaskan tugas..."
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Tanggal Pengumpulan
-                        </label>
-
-                        <input
-                            type="date"
-                            id="dueDate"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    id="addButton"
-                    class="primary-button"
-                >
-                    + Tambah Homework
-                </button>
-
-            </div>
-
-
-            <!-- HOMEWORK LIST -->
-
-            <div class="admin-panel">
-
-                <h3>
-                    Homework Saat Ini
-                </h3>
-
-                <div id="adminHomeworkList">
-
-                    <p class="muted">
-                        Memuat homework...
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-<script type="module" src="admin.js"></script>
 </body>
 </html>

@@ -5,7 +5,17 @@ import {
     orderBy
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-import { db } from "./firebase.js";
+import {
+    db,
+    auth,
+    googleProvider
+} from "./firebase.js";
+
+import {
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const homeworkList = document.getElementById("homeworkList");
 const search = document.getElementById("search");

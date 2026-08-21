@@ -345,3 +345,102 @@ function escapeHTML(value) {
         .replaceAll("'", "&#039;");
 
 }
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const userInfo =
+    document.getElementById("userInfo");
+
+const userName =
+    document.getElementById("userName");
+
+const logoutButton =
+    document.getElementById("logoutButton");
+
+
+loginButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            await signInWithPopup(
+                auth,
+                googleProvider
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+            alert(
+                "Login gagal:\n\n"
+                + error.message
+            );
+
+        }
+
+    }
+);
+
+
+logoutButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            await signOut(auth);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+);
+
+
+onAuthStateChanged(
+    auth,
+    function(user) {
+
+        if (user) {
+
+            loginButton.classList.add(
+                "hidden"
+            );
+
+            userInfo.classList.remove(
+                "hidden"
+            );
+
+            userName.textContent =
+                user.displayName ||
+                user.email;
+
+        } else {
+
+            loginButton.classList.remove(
+                "hidden"
+            );
+
+            userInfo.classList.add(
+                "hidden"
+            );
+
+            userName.textContent = "";
+
+        }
+
+    }
+);

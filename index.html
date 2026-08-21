@@ -44,22 +44,33 @@
 
         <div class="header-actions">
 
-            <!-- LANGUAGE -->
-            <select id="languageSelect" class="language-select">
-
-                <option value="id">
-                    ???? Bahasa Indonesia
-                </option>
-
-                <option value="en">
-                    ???? English
-                </option>
-
-            </select>
+        
 
 
             <!-- ADMIN -->
          <button
+    id="loginButton"
+    class="login-button"
+>
+    🔵 Login
+</button>
+
+<div
+    id="userInfo"
+    class="user-info hidden"
+>
+    <span id="userName"></span>
+
+    <button
+        id="logoutButton"
+        class="logout-button"
+    >
+        Logout
+    </button>
+</div>
+            
+            
+            <button
     class="admin-button"
     id="adminButton"
     onclick="window.location.href='admin.html'"

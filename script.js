@@ -12,26 +12,34 @@ import {
 } from "./firebase.js";
 
 import {
-    signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
     signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-const homeworkList = document.getElementById("homeworkList");
-const search = document.getElementById("search");
-const sort = document.getElementById("sort");
+
+/* =========================
+   HOMEWORK
+========================= */
+
+const homeworkList =
+    document.getElementById("homeworkList");
+
+const search =
+    document.getElementById("search");
+
+const sort =
+    document.getElementById("sort");
 
 let homework = [];
 
-
-/* =========================
-   LOAD FROM FIRESTORE
-========================= */
 
 const homeworkQuery = query(
     collection(db, "homework"),
     orderBy("due", "asc")
 );
+
 
 onSnapshot(
     homeworkQuery,
@@ -49,7 +57,10 @@ onSnapshot(
 
     (error) => {
 
-        console.error("Firestore error:", error);
+        console.error(
+            "Firestore error:",
+            error
+        );
 
         homeworkList.innerHTML = `
             <div class="empty-state">
@@ -73,8 +84,6 @@ function render() {
     const searchText =
         search.value.toLowerCase().trim();
 
-
-    /* SEARCH */
 
     if (searchText) {
 
@@ -102,8 +111,6 @@ function render() {
 
     }
 
-
-    /* SORT */
 
     if (sort.value === "soon") {
 
@@ -138,16 +145,12 @@ function render() {
     }
 
 
-    /* EMPTY */
-
     if (items.length === 0) {
 
         homeworkList.innerHTML = `
             <div class="empty-state">
 
-                <h3>
-                    No homework yet
-                </h3>
+                <h3>No homework yet</h3>
 
                 <p>
                     New homework will appear here.
@@ -157,58 +160,62 @@ function render() {
         `;
 
         return;
+
     }
 
 
-    /* HOMEWORK CARDS */
+    homeworkList.innerHTML =
+        items.map((item) => {
 
-    homeworkList.innerHTML = items.map((item) => {
+            const dueInfo =
+                getDueInfo(item.due);
 
-        const dueInfo =
-            getDueInfo(item.due);
+            return `
+                <article class="homework-card">
 
-        return `
-            <article class="homework-card">
+                    <div class="homework-info">
 
-                <div class="homework-info">
+                        <div class="subject">
+                            ${escapeHTML(
+                                item.subject || ""
+                            )}
+                        </div>
 
-                    <div class="subject">
-                        ${escapeHTML(item.subject || "")}
+                        <h3 class="homework-title">
+                            ${escapeHTML(
+                                item.title || ""
+                            )}
+                        </h3>
+
+                        <p class="homework-details">
+                            ${escapeHTML(
+                                item.details || ""
+                            )}
+                        </p>
+
                     </div>
 
-                    <h3 class="homework-title">
-                        ${escapeHTML(item.title || "")}
-                    </h3>
+                    <div
+                        class="due-date ${dueInfo.className}"
+                    >
 
-                    <p class="homework-details">
-                        ${escapeHTML(item.details || "")}
-                    </p>
+                        <span class="due-label">
+                            ${dueInfo.label}
+                        </span>
 
-                </div>
+                        <span>
+                            ${dueInfo.date}
+                        </span>
 
-                <div class="due-date ${dueInfo.className}">
+                    </div>
 
-                    <span class="due-label">
-                        ${dueInfo.label}
-                    </span>
+                </article>
+            `;
 
-                    <span>
-                        ${dueInfo.date}
-                    </span>
-
-                </div>
-
-            </article>
-        `;
-
-    }).join("");
+        }).join("");
 
 }
 
-
-/* =========================
-   SEARCH + SORT
-========================= */
 
 search.addEventListener(
     "input",
@@ -222,12 +229,10 @@ sort.addEventListener(
 
 
 /* =========================
-   SMART DUE DATE
+   DUE DATE
 ========================= */
 
 function getDueInfo(dateString) {
-    console.log("Due date:", dateString);
-    console.log("Today:", new Date());
 
     if (!dateString) {
 
@@ -239,19 +244,29 @@ function getDueInfo(dateString) {
 
     }
 
+
     const dueDate =
-        new Date(dateString + "T00:00:00");
+        new Date(
+            dateString + "T00:00:00"
+        );
 
     const today =
         new Date();
 
-    today.setHours(0, 0, 0, 0);
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
 
     const difference =
         Math.round(
             (dueDate - today) /
             (1000 * 60 * 60 * 24)
         );
+
 
     const formattedDate =
         formatDate(dateString);
@@ -267,6 +282,7 @@ function getDueInfo(dateString) {
 
     }
 
+
     if (difference === 0) {
 
         return {
@@ -276,6 +292,7 @@ function getDueInfo(dateString) {
         };
 
     }
+
 
     if (difference === 1) {
 
@@ -287,15 +304,18 @@ function getDueInfo(dateString) {
 
     }
 
+
     if (difference <= 7) {
 
         return {
-            label: `${difference} hari lagi`,
+            label:
+                `${difference} hari lagi`,
             date: formattedDate,
             className: "due-soon"
         };
 
     }
+
 
     return {
         label: "Due",
@@ -306,18 +326,18 @@ function getDueInfo(dateString) {
 }
 
 
-/* =========================
-   DATE
-========================= */
-
 function formatDate(dateString) {
 
     if (!dateString) {
         return "-";
     }
 
+
     const date =
-        new Date(dateString + "T00:00:00");
+        new Date(
+            dateString + "T00:00:00"
+        );
+
 
     return date.toLocaleDateString(
         "id-ID",
@@ -332,115 +352,238 @@ function formatDate(dateString) {
 
 
 /* =========================
+   GOOGLE LOGIN
+========================= */
+
+const loginButton =
+    document.getElementById(
+        "loginButton"
+    );
+
+const userInfo =
+    document.getElementById(
+        "userInfo"
+    );
+
+const userName =
+    document.getElementById(
+        "userName"
+    );
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+console.log(
+    "Google login elements:",
+    {
+        loginButton,
+        userInfo,
+        userName,
+        logoutButton
+    }
+);
+
+
+/* LOGIN */
+
+if (loginButton) {
+
+    loginButton.addEventListener(
+        "click",
+        async function() {
+
+            console.log(
+                "Google login clicked"
+            );
+
+            try {
+
+                await signInWithRedirect(
+                    auth,
+                    googleProvider
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Google login error:",
+                    error
+                );
+
+                alert(
+                    "Login gagal:\n\n" +
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* CHECK REDIRECT */
+
+getRedirectResult(auth)
+    .then((result) => {
+
+        if (result && result.user) {
+
+            console.log(
+                "Google login successful:",
+                result.user
+            );
+
+        }
+
+    })
+    .catch((error) => {
+
+        console.error(
+            "Google redirect error:",
+            error
+        );
+
+        alert(
+            "Google login gagal:\n\n" +
+            error.message
+        );
+
+    });
+
+
+/* LOGOUT */
+
+if (logoutButton) {
+
+    logoutButton.addEventListener(
+        "click",
+        async function() {
+
+            try {
+
+                await signOut(auth);
+
+            } catch (error) {
+
+                console.error(
+                    "Logout error:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(
+    auth,
+    function(user) {
+
+        console.log(
+            "Auth state:",
+            user
+        );
+
+
+        if (user) {
+
+            if (loginButton) {
+
+                loginButton.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (userInfo) {
+
+                userInfo.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+            if (userName) {
+
+                userName.textContent =
+                    user.displayName ||
+                    user.email ||
+                    "Student";
+
+            }
+
+        }
+
+        else {
+
+            if (loginButton) {
+
+                loginButton.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+
+            if (userInfo) {
+
+                userInfo.classList.add(
+                    "hidden"
+                );
+
+            }
+
+
+            if (userName) {
+
+                userName.textContent = "";
+
+            }
+
+        }
+
+    }
+);
+
+
+/* =========================
    HTML SAFETY
 ========================= */
 
 function escapeHTML(value) {
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 
 }
-
-/* =========================
-   GOOGLE LOGIN
-========================= */
-
-const loginButton =
-    document.getElementById("loginButton");
-
-const userInfo =
-    document.getElementById("userInfo");
-
-const userName =
-    document.getElementById("userName");
-
-const logoutButton =
-    document.getElementById("logoutButton");
-
-
-loginButton.addEventListener(
-    "click",
-    async function() {
-
-        try {
-
-            await signInWithPopup(
-                auth,
-                googleProvider
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Login error:",
-                error
-            );
-
-            alert(
-                "Login gagal:\n\n"
-                + error.message
-            );
-
-        }
-
-    }
-);
-
-
-logoutButton.addEventListener(
-    "click",
-    async function() {
-
-        try {
-
-            await signOut(auth);
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    }
-);
-
-
-onAuthStateChanged(
-    auth,
-    function(user) {
-
-        if (user) {
-
-            loginButton.classList.add(
-                "hidden"
-            );
-
-            userInfo.classList.remove(
-                "hidden"
-            );
-
-            userName.textContent =
-                user.displayName ||
-                user.email;
-
-        } else {
-
-            loginButton.classList.remove(
-                "hidden"
-            );
-
-            userInfo.classList.add(
-                "hidden"
-            );
-
-            userName.textContent = "";
-
-        }
-
-    }
-);

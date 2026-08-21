@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
 
-    <button
-    id="loginButton"
-    class="login-button"
->
-    🔵 Login with Google
-</button>
-
-<div
-    id="userInfo"
-    class="user-info hidden"
->
-    <span id="userName"></span>
-
-    <button
-        id="logoutButton"
-        class="logout-button"
-    >
-        Logout
-    </button>
-</div>
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>7I Homework Tracker</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
     >
+
 </head>
+
 
 <body>
 
     <!-- HEADER -->
+
     <header class="topbar">
 
         <div class="brand">
@@ -50,6 +48,7 @@
             </div>
 
             <div class="brand-text">
+
                 <h1 data-i18n="tracker">
                     Homework Tracker
                 </h1>
@@ -57,6 +56,7 @@
                 <p data-i18n="class">
                     Kelas 7I
                 </p>
+
             </div>
 
         </div>
@@ -64,37 +64,46 @@
 
         <div class="header-actions">
 
-        
+
+            <!-- GOOGLE LOGIN -->
+
+            <button
+                id="loginButton"
+                class="login-button"
+                type="button"
+            >
+                🔵 Login with Google
+            </button>
+
+
+            <!-- USER INFO -->
+
+            <div
+                id="userInfo"
+                class="user-info hidden"
+            >
+
+                <span id="userName"></span>
+
+                <button
+                    id="logoutButton"
+                    class="logout-button"
+                    type="button"
+                >
+                    Logout
+                </button>
+
+            </div>
 
 
             <!-- ADMIN -->
-         <button
-    id="loginButton"
-    class="login-button"
->
-    🔵 Login
-</button>
 
-<div
-    id="userInfo"
-    class="user-info hidden"
->
-    <span id="userName"></span>
-
-    <button
-        id="logoutButton"
-        class="logout-button"
-    >
-        Logout
-    </button>
-</div>
-            
-            
             <button
-    class="admin-button"
-    id="adminButton"
-    onclick="window.location.href='admin.html'"
->
+                class="admin-button"
+                id="adminButton"
+                type="button"
+                onclick="window.location.href='admin.html'"
+            >
 
                 <span class="lock-icon"></span>
 
@@ -104,6 +113,7 @@
 
             </button>
 
+
         </div>
 
     </header>
@@ -111,10 +121,12 @@
 
 
     <!-- MAIN -->
+
     <main class="container">
 
 
         <!-- WELCOME -->
+
         <section class="welcome">
 
             <span
@@ -124,9 +136,11 @@
                 KELAS 7I
             </span>
 
+
             <h2 data-i18n="homework">
                 Pekerjaan Rumah
             </h2>
+
 
             <p data-i18n="description">
                 Pantau semua tugas yang harus dikerjakan.
@@ -137,10 +151,12 @@
 
 
         <!-- CONTROLS -->
+
         <section class="controls">
 
 
             <!-- SEARCH -->
+
             <div class="search-box">
 
                 <span class="search-icon"></span>
@@ -156,6 +172,7 @@
 
 
             <!-- SORT -->
+
             <select id="sort">
 
                 <option
@@ -165,12 +182,14 @@
                     Paling Dekat
                 </option>
 
+
                 <option
                     value="late"
                     data-i18n="dueLatest"
                 >
                     Paling Jauh
                 </option>
+
 
                 <option
                     value="subject"
@@ -186,31 +205,47 @@
 
 
         <!-- HOMEWORK -->
+
         <section
             id="homeworkList"
             class="homework-list"
         >
 
-          
+            <!-- Homework cards are loaded by script.js -->
+
+        </section>
+
+
+    </main>
+
+
+
     <!-- FOOTER -->
+
     <footer>
 
         <p>
+
             © 2026
+
             <span data-i18n="footer">
                 7I Homework Tracker
             </span>
+
         </p>
 
     </footer>
 
 
 
-<script type="module" src="script.js"></script>
+    <!-- JAVASCRIPT -->
+
+    <script
+        type="module"
+        src="script.js"
+    ></script>
+
 
 </body>
 
 </html>
-
-
-<script type="module" src="script.js"></script>
